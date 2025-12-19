@@ -1,13 +1,100 @@
 <html>
     <head>
+        <style type = "text/css">
+            body {
+                background-color: #EAE0CF; /* Use a color name or a hex code */
+                align-items: center;
+            }
+            
+            .sidenav{
+                height: 100%;
+                width: 250px;
+                background-color: #213448;
+                position: fixed;
+                z-index:1;
+                top:0;
+                left: 0px;
+                overflow-x: :hidden;
+                padding-top:20px;
+            }
+            input[type="text"],  select{
+            display: block;
+            margin: 10px auto;     /* Centers them in the form */
+            padding: 10px;
+            border: 2px solid #336699; /* Storm Blue */
+            border-radius: 8px;
+            width: 250px;
+            font-size: 16px;
+            }       
+            label {
+                display: block;
+                width: 250px; 
+                margin: 0 auto;
+                text-align: left;   
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #082466;
+            }
+            .sidenav a{
+                padding : 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size :  25px;
+                color: #ffffffff;
+                display: block;
+            }
+
+            .sidenav a:hover{
+                color: #006eddff;
+            }
+
+            .main{
+                margin-left: 250px;
+                padding: 0px 5px;
+                
+            }
+            button {
+        display: block;
+        background-color: #336699; /* Storm Blue */
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px auto;
+        text-decoration: none;
+    }
+    h1{
+            background-color: #547792;
+            padding: 12px 0px;
+            border-radius: 15px;
+            color: #ffffff; 
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+    a{
+        text-decoration: none;
+    }
+    button:hover {
+        background-color: #082466; /* Deep Sapphire */
+    }
+        </style>
         {%block title%}
             <title>Shivaths' Demo Website</title>
         {%endblock%}
+
+        {%block extra_css %}{% endblock %}
     </head>
     <body>
-        <div id="content", name = "content">
+        <div class = "sidenav">
+            <a href="{% url 'Home'%}">Home</a>
+            <a href="{% url 'Create'%}">Create ToDoList</a>
+            <a href="{% url 'ShowALl'%}">Show All Lists</a>
+        </div>
+        <div id="content", name = "content", class = "main">
             {% block content%}
-            <p>hi {{name}} </p>
+            <h1>Hello There {{name}} </h1>
             {% endblock %}
         </div>
     </body>

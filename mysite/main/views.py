@@ -30,7 +30,7 @@ def home(response):
 
 
 def greet(response, welcome):
-    return render(response, "main/base.html", {"name": welcome})
+    return render(response, "main/base.html", {"name": welcome.capitalize()})
 
 def content(response, id):  
     taskForm = addToList()

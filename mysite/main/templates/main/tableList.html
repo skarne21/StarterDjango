@@ -1,5 +1,8 @@
+{%extends 'main/base.html'%}
+
+
+
 {% block content %}
-<a href="{% url 'Home'%}"><button type="button">HOME</button></a>
 
 <h1>{{nameTable}}{{ls.name}}</h1>
 <ul>
@@ -34,3 +37,36 @@
     <p>{{nameList}}</p>
 </ul>
 {%endblock%}
+{% block extra_css %}
+<style type="text/css">
+    ul {
+        list-style-type: none; 
+        padding: 0;
+        text-align: center;
+        text-align: center;
+        width: fit-content;    
+        margin: 20px auto;
+    }
+
+    li {
+        background-color: #547792;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin: 10px auto; 
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 10px 0;
+        white-space: nowrap;
+    }
+
+    li input[type="checkbox"] {
+        display: inline-block;
+        width: auto;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+    
+</style>
+{% endblock %}

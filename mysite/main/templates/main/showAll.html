@@ -6,33 +6,85 @@
 {%endblock%}
 
 {%block content%}
-<a href="{% url 'Home'%}"><button type="button">HOME</button></a>
 {% for ls in all %}
 <h1>{{ls.name}}</h1>
-<ul>
-    <a href="{% url 'content' ls.order %}"><button type="button">Go To {{ls.name}}</button></a>
-    <form method="POST" action="" name="delete">
-        {%csrf_token%}
-        <button type="submit" name="idToDelete" value="{{ls.order}}">Delete {{ls.name}}</button>
-    </form>
-    {% for item in ls.item_set.all %}
-    {% if item.complete == False %}
-    <li>
-        {{item.text}} &emsp; due: {{item.taskDueDate}}
-        <input type="checkbox" disabled>
-    </li>
-    {% endif %}
-    {% endfor %}
+<div class="content">
+    <div class="Navigation">
+            <a href="{% url 'content' ls.order %}"><button type="button">Go To {{ls.name}}</button></a>
+            <form method="POST" action="" name="delete">
+                {%csrf_token%}
+                <button type="submit" name="idToDelete" value="{{ls.order}}">Delete This List</button>
+            </form>
+        </div>
+    <ul>
+        
+        {% for item in ls.item_set.all %}
+        {% if item.complete == False %}
+        <li>
+            {{item.text}} &emsp; due: {{item.taskDueDate}}
+            <input type="checkbox" disabled>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% for item in ls.item_set.all %}
+        {% if item.complete == True %}
+        <li>
+            {{item.text}} &emsp; due: {{item.taskDueDate}}
+            <input type="checkbox" checked disabled>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    </div>
 
-    {% for item in ls.item_set.all %}
-    {% if item.complete == True %}
-    <li>
-        {{item.text}} &emsp; due: {{item.taskDueDate}}
-        <input type="checkbox" checked disabled>
-    </li>
-    {% endif %}
-    {% endfor %}
-
-</ul>
 {% endfor %}
+{%endblock%}
+
+{% block extra_css %}
+    <style type="text/css">
+        .content {
+    display: flex;
+    justify-content: center; /* This centers the UL in the middle */
+    align-items: flex-start;
+    position: relative;     /* Keeps the absolute buttons inside this box */
+    width: 100%;
+}
+        li{
+            display: block;
+            background-color: #547792;
+            padding: 1px;
+            border-radius: 4px;
+            color: #ffffff;
+            width: fit-content;
+            margin: 0 auto 10px auto;
+            
+        }
+        
+        
+        .Navigation {
+            display: flex;
+            flex-direction: column;  
+            position: absolute;      
+            left: 20px;             
+            top:-17px;
+            gap:3px;
+            width: min-content;
+        }
+        .Navigation form {
+            margin: 0;
+        }
+        
+        ul{
+            padding:0;
+            margin: 0px;
+            display: block;
+        }
+        button{
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            white-space: nowrap;
+        }
+        
+    </style>
 {%endblock%}

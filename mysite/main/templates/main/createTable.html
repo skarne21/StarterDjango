@@ -5,14 +5,28 @@
 {% endblock%}
 
 {% block content %}
-<h1>Create a new To Do List
+<h1>Create a New ToDoList
 </h1>
 <form method="post" action="/create/">
     {%csrf_token%}
     {{form.as_p}}
     <button type="submit" name="save">Create</button>
-    <a href="{% url 'ShowALl'%}"><button type="button">SHOWALL</button></a>
-    <a href="{% url 'Home'%}"><button type="button">HOME</button></a>
 
 </form>
 {% endblock %}
+
+
+{% block extra_css %}
+    <style type="text/css">
+        h1{
+            background-color: #547792;
+            padding: 12px 0px;
+            border-radius: 15px;
+            color: #ffffff; 
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+    </style>
+{%endblock%}
