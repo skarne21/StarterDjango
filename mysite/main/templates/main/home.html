@@ -1,81 +1,58 @@
-{%extends 'main/base.html'%}
+{%extends 'main/base.html'%} {%block content%}
 
-{%block content%}
-
-<div class = "heading">
-    <h1>ToDolist Tracker</h1>
-    <p>Choose a Table to View or Enter Your Name to Get Greeted</p>
+<div class="heading">
+  <h1>ToDolist Tracker</h1>
+  <p>View Your Previous ToDoLists</p>
 </div>
 
-<div class = "styleForm1">
-    <form method="post" name="form1" action="">
-        {%csrf_token%}
-        {{form1.as_p}}
-        <button type="submit" name="action" value="submit1">Show Table</button>
-    </form>
+<div class="styleForm1">
+  <form method="post" name="form1" action="">
+    {%csrf_token%} {{form1.as_p}}
+    <button type="submit" name="action" value="submit1">Show Table</button>
+  </form>
 </div>
 
-<div class = "styleForm2">
 
-    <form method="post" name="form2" action="">
-        {%csrf_token%}
-        {{form2.as_p}}
-        <button type="submit" name="action" value="submit2">Submit Name</button>
-    </form>
-</div>
 
-{%endblock%}
-
-{%block title%}
+{%endblock%} {%block title%}
 <title>Home Page</title>
-{%endblock%}
-
-{% block extra_css %}
+{%endblock%} {% block extra_css %}
 <style type="text/css">
-    
-    .heading h1 {
-        background-color: #547792;
-        padding: 12px;
-        border-radius: 15px;
-        color: #ffffff; /* Corrected syntax: used ':' and fixed hex code */
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .heading{
-        align-items: center;
-        width :100%;
-        
-    }
-    .heading p {
-        background-color: #547792;
-        padding: 6px;
-        font-size: 20px;
-        font-weight: bold;
-        border-radius: 15px;
-        color: #ffffff;
-        width: fit-content;
-        margin: auto;
-    }
-    .styleForm1{
-        align-items: center;
-        width :100%;
-    }
-    .styleForm1 form{
-        margin: auto;
-        border-radius: 15px;
-        padding: 10px;
-        width: fit-content;
-    }
-    .styleForm2{
-        align-items: center;
-        width :100%;
-    }
-    .styleForm2 form{
-        margin: auto;
-        border-radius: 15px;
-        padding: 6px;
-        width: fit-content;
-    }    
+  .heading h1 {
+    background-color: #547792;
+    padding: 12px;
+    border-radius: 15px;
+    color: #ffffff; /* Corrected syntax: used ':' and fixed hex code */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .heading {
+    align-items: center;
+    width: 100%;
+  }
+  .heading p {
+    background-color: #547792;
+    padding: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    color: #ffffff;
+    width: fit-content;
+    margin: auto;
+  }
+  .styleForm1 {
+    align-items: center;
+    width: 100%;
+  }
+  .styleForm1 form {
+    margin: auto;
+    border-radius: 15px;
+    padding: 10px;
+    width: fit-content;
+  }
+  button{
+    border-radius:5px;
+  }
 </style>
 {% endblock %}

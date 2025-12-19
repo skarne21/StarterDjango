@@ -22,7 +22,10 @@
         {% if item.complete == False %}
         <li>
             {{item.text}} &emsp; due: {{item.taskDueDate}}
-            <input type="checkbox" disabled>
+            <div class="checkbox-wrapper-19">
+        <input type="checkbox" id="{{item.taskId}}" disabled />
+        <label for="{{item.taskId}}" class="check-box"></label>
+      </div>
         </li>
         {% endif %}
         {% endfor %}
@@ -30,7 +33,10 @@
         {% if item.complete == True %}
         <li>
             {{item.text}} &emsp; due: {{item.taskDueDate}}
-            <input type="checkbox" checked disabled>
+            <div class="checkbox-wrapper-19">
+        <input type="checkbox" id="{{item.taskId}}" checked disabled />
+        <label for="{{item.taskId}}" class="check-box"></label>
+      </div>
         </li>
         {% endif %}
         {% endfor %}
@@ -49,16 +55,18 @@
     position: relative;     /* Keeps the absolute buttons inside this box */
     width: 100%;
 }
-        li{
-            display: block;
-            background-color: #547792;
-            padding: 1px;
-            border-radius: 4px;
-            color: #ffffff;
-            width: fit-content;
-            margin: 0 auto 10px auto;
-            
-        }
+        li {
+    display: flex;             /* Changed from block */
+    align-items: center;       /* Vertically centers text and checkbox */
+    justify-content: space-between; /* Keeps text on left, checkbox on right */
+    background-color: #547792;
+    padding: 8px 12px;         /* Increased padding for better spacing */
+    border-radius: 4px;
+    color: #ffffff;
+    width: fit-content;        /* This will now account for the checkbox width */
+    min-width: 300px;          /* Optional: keeps boxes a consistent size */
+    margin: 0 auto 10px auto;
+}
         
         
         .Navigation {
@@ -66,7 +74,7 @@
             flex-direction: column;  
             position: absolute;      
             left: 20px;             
-            top:-17px;
+            top:-5px;
             gap:3px;
             width: min-content;
         }
@@ -84,7 +92,93 @@
             box-sizing: border-box;
             margin: 0;
             white-space: nowrap;
+            border-radius:5px;
         }
-        
+
+        .checkbox-wrapper-19 {
+    box-sizing: border-box;
+    --background-color: #547792;
+    --checkbox-height: 20px;
+    display: flex;             /* Use flex here too */
+    align-items: center;
+    margin-left: 20px;         /* Space between text and check */
+    height: var(--checkbox-height); /* Keep height constrained */
+}
+
+    .checkbox-wrapper-19 input[type="checkbox"] {
+        display: none;
+    }
+
+    .checkbox-wrapper-19 .check-box {
+    height: var(--checkbox-height);
+    width: var(--checkbox-height);
+    background-color: transparent;
+    border: calc(var(--checkbox-height) * 0.1) solid #fff; /* White border for contrast */
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+    transition: border-color ease 0.2s;
+    cursor: pointer;
+    }
+
+    .checkbox-wrapper-19 .check-box::before,
+    .checkbox-wrapper-19 .check-box::after {
+    position: absolute;
+    height: 0;
+    width: calc(var(--checkbox-height) * 0.2);
+    background-color: #34b93d;
+    display: inline-block;
+    transform-origin: left top;
+    border-radius: 5px;
+    content: " ";
+    transition: opacity ease 0.5;
+    }
+
+    .checkbox-wrapper-19 .check-box::before {
+    top: calc(var(--checkbox-height) * 0.72);
+    left: calc(var(--checkbox-height) * 0.41);
+    box-shadow: 0 0 0 calc(var(--checkbox-height) * 0.05)
+        var(--background-color);
+    transform: rotate(-135deg);
+    }
+
+    .checkbox-wrapper-19 .check-box::after {
+    top: calc(var(--checkbox-height) * 0.37);
+    left: calc(var(--checkbox-height) * 0.05);
+    transform: rotate(-45deg);
+    }
+
+    .checkbox-wrapper-19 input[type="checkbox"]:checked + .check-box {
+    border-color: #34b93d;
+    }
+
+    .checkbox-wrapper-19 input[type="checkbox"]:checked + .check-box::after {
+    animation: dothabottomcheck-19 0.2s ease 0s forwards;
+    }
+
+    .checkbox-wrapper-19 input[type="checkbox"]:checked + .check-box::before {
+        animation: dothatopcheck-19 0.4s ease 0s forwards;
+    }
+
+    @keyframes dothabottomcheck-19 {
+        0% {
+        height: 0;
+        }
+        100% {
+        height: calc(var(--checkbox-height) / 2);
+        }
+    }
+    @keyframes dothatopcheck-19 {
+        0% {
+        height: 0;
+        }
+        50% {
+        height: 0;
+        }
+        100% {
+        height: calc(var(--checkbox-height) * 1.2);
+        }
+    }
+
     </style>
 {%endblock%}

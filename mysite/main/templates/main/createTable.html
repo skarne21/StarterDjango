@@ -7,15 +7,14 @@
 {% block content %}
 <h1>Create a New ToDoList
 </h1>
+<div class = "form1">
 <form method="post" action="/create/">
     {%csrf_token%}
     {{form.as_p}}
     <button type="submit" name="save">Create</button>
-
+</div>
 </form>
 {% endblock %}
-
-
 {% block extra_css %}
     <style type="text/css">
         h1{
@@ -26,6 +25,23 @@
             width: 100%;
             text-align: center;
             box-sizing: border-box;
+        }
+        button{
+            border-radius: 5px;
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            width: fit-content;
+        }
+        .form1{
+            width: 100%;
+            margin: 0 auto;
+        }
+        .form1 label{
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         
     </style>
