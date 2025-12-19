@@ -1,0 +1,27 @@
+{%extends 'main/base.html'%}
+
+{%block content%}
+<h1>ToDolist Tracker</h1>
+<p>Enter text to get greeted, enter numbers to see data, enter /create to create a table</p>
+
+<form method="post" name="form1" action="">
+    {%csrf_token%}
+    {{form1.as_p}}
+    <button type="submit" name="action" value="submit1">Show Table</button>
+</form>
+
+<form method="post" name="form2" action="">
+    {%csrf_token%}
+    {{form2.as_p}}
+    <button type="submit" name="action" value="submit2">Submit Name</button>
+</form>
+<a href="{% url 'ShowALl'%}"><button type="button">Show Every List</button></a>
+<p></p>
+<a href="{% url 'Create'%}"><button type="button">Create New List</button></a>
+
+
+{%endblock%}
+
+{%block title%}
+<title>Home Page</title>
+{%endblock%}

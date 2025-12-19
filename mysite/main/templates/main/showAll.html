@@ -1,0 +1,38 @@
+{%extends 'main/base.html'%}
+
+{%block title%}
+
+<title>ALL TABLES</title>
+{%endblock%}
+
+{%block content%}
+<a href="{% url 'Home'%}"><button type="button">HOME</button></a>
+{% for ls in all %}
+<h1>{{ls.name}}</h1>
+<ul>
+    <a href="{% url 'content' ls.order %}"><button type="button">Go To {{ls.name}}</button></a>
+    <form method="POST" action="" name="delete">
+        {%csrf_token%}
+        <button type="submit" name="idToDelete" value="{{ls.order}}">Delete {{ls.name}}</button>
+    </form>
+    {% for item in ls.item_set.all %}
+    {% if item.complete == False %}
+    <li>
+        {{item.text}} &emsp; due: {{item.taskDueDate}}
+        <input type="checkbox" disabled>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    {% for item in ls.item_set.all %}
+    {% if item.complete == True %}
+    <li>
+        {{item.text}} &emsp; due: {{item.taskDueDate}}
+        <input type="checkbox" checked disabled>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+</ul>
+{% endfor %}
+{%endblock%}

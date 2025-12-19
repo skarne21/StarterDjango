@@ -1,0 +1,36 @@
+{% block content %}
+<a href="{% url 'Home'%}"><button type="button">HOME</button></a>
+
+<h1>{{nameTable}}{{ls.name}}</h1>
+<ul>
+    <form method="post" name="taskForm" action="">
+        {{form.as_p}}
+        <button type="submit" name="save" value="newTask">Submit Name</button>
+        <p></p>
+        <p></p>
+        {%csrf_token%}
+
+        {% for item in sort %}
+        {% if item.complete == False %}
+        <li>
+            {{item.text}} &emsp; due: {{item.taskDueDate}}
+            <input type="checkbox" name="toggledItem" value="{{item.taskId}}" onchange="this.form.submit()">
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% for item in sort %}
+        {% if item.complete == True %}
+        <li>
+            {{item.text}} &emsp; due: {{item.taskDueDate}}
+            <input type="checkbox" name="toggledItem" value="{{item.taskId}}" checked onchange="this.form.submit()">
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        <p></p>
+        <p></p>
+    </form>
+    <p>{{nameList}}</p>
+</ul>
+{%endblock%}
