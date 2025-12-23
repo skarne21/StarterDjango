@@ -3,65 +3,54 @@
 {% block content %}
 <div class="task-container">
     <h1>{{nameTable}}{{ls.name}}</h1>
-
     <form method="post" name="taskForm" action="">
         {% csrf_token %}
-
         <div class="input-section">
-            <div class="input-section">
-    <div class="form-fields">
-        {{form.as_p}}
-    </div>
-    <button type="submit" name="save" value="newTask" class="add-btn">Add Task</button>
-</div>
-
+            <div class="form-fields">
+                {{form.as_p}}
+            </div>
+            <button type="submit" name="save" value="newTask" class="add-btn">Add Task</button>
+        </div>
         <ul class="task-list">
-    {# Pending Tasks #}
-    {% for item in sort %}
-        {% if item.complete == False %}
-        <li class="task-item">
-            <div class="task-text">
-                <span class="text-main">{{item.text}}</span>
-                <span class="text-due">due: {{item.taskDueDate}}</span>
-            </div>
-            <div class="checkbox-wrapper-19">
-                <input type="checkbox" id="{{item.taskId}}" name="toggledItem" value="{{item.taskId}}" onchange="this.form.submit()" />
-            </div>
-        </li>
-        {% endif %}
-    {% endfor %}
-
-    {# Completed Tasks #}
-    {% for item in sort %}
-        {% if item.complete == True %}
-        <li class="task-item completed">
-            <div class="task-text">
-                <span class="text-main">{{item.text}}</span>
-                <span class="text-due">due: {{item.taskDueDate}}</span>
-            </div>
-            <div class="checkbox-wrapper-19">
-                <input type="checkbox" id="{{item.taskId}}" name="toggledItem" value="{{item.taskId}}" checked onchange="this.form.submit()" />
-            </div>
-        </li>
-        {% endif %}
-    {% endfor %}
-</ul>
+            {% for item in sort %}
+                {% if item.complete == False %}
+                    <li class="task-item">
+                        <div class="task-text">
+                            <span class="text-main">{{item.text}}</span>
+                            <span class="text-due">due: {{item.taskDueDate}}</span>
+                        </div>
+                        <div class="checkbox-wrapper-19">
+                            <input type="checkbox" id="{{item.taskId}}" name="toggledItem" value="{{item.taskId}}" onchange="this.form.submit()" />
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% for item in sort %}
+                {% if item.complete == True %}
+                    <li class="task-item completed">
+                        <div class="task-text">
+                            <span class="text-main">{{item.text}}</span>
+                            <span class="text-due">due: {{item.taskDueDate}}</span>
+                        </div>
+                        <div class="checkbox-wrapper-19">
+                            <input type="checkbox" id="{{item.taskId}}" name="toggledItem" value="{{item.taskId}}" checked onchange="this.form.submit()" />
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </form>
     <p class="footer-text">{{nameList}}</p>
 </div>
 {% endblock %}
-
 {% block extra_css %}
 <style type="text/css">
     .task-container {
-        /* Increased from 500px to 800px to make boxes wider */
-        max-width: 800px; 
+        max-width: 800px;
         margin: 40px auto;
         text-align: center;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    /* Form Header Styling */
     h1 {
         background-color: #547792;
         color: white;
@@ -71,39 +60,32 @@
         width: 100%;
         box-sizing: border-box;
     }
-
     .input-section {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 40px;
     }
-
-    /* Grouping and Spacing for Form Fields */
     .form-fields p {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
         width: 100%;
     }
-
     .form-fields label {
         font-weight: bold;
         color: #002b5c;
         margin-bottom: 8px;
     }
-
     input[type="text"], input[type="date"], select {
         padding: 10px;
         border-radius: 8px;
         border: 2px solid #547792;
         width: 100%;
-        max-width: 400px; /* Slightly wider inputs to match the bigger container */
+        max-width: 400px; 
         box-sizing: border-box;
     }
-
-    /* --- CHECKBOX LOGIC (FORM & LIST) --- */
     .form-fields input[type="checkbox"],
     .checkbox-wrapper-19 input[type="checkbox"] {
         appearance: none;
@@ -119,12 +101,10 @@
         margin: 0;
         vertical-align: middle;
     }
-
     .checkbox-wrapper-19 input[type="checkbox"] {
         border-color: #fff;
         background-color: transparent;
     }
-
     .form-fields input[type="checkbox"]::before,
     .form-fields input[type="checkbox"]::after,
     .checkbox-wrapper-19 input[type="checkbox"]::before,
@@ -139,42 +119,34 @@
         transition: opacity 0.2s;
         opacity: 0;
     }
-
     .form-fields input[type="checkbox"]::before,
     .checkbox-wrapper-19 input[type="checkbox"]::before {
         top: 17px; left: 10px;
         transform: rotate(-135deg);
     }
-
     .form-fields input[type="checkbox"]::after,
     .checkbox-wrapper-19 input[type="checkbox"]::after {
         top: 8px; left: 1px;
         transform: rotate(-45deg);
     }
-
     input[type="checkbox"]:checked::before {
         opacity: 1;
         animation: check-top 0.4s ease forwards;
     }
-
     input[type="checkbox"]:checked::after {
         opacity: 1;
         animation: check-bottom 0.2s ease forwards;
     }
-
     .form-fields p:has(input[type="checkbox"]) {
         flex-direction: row;
         justify-content: center;
         gap: 15px;
     }
-
-    /* --- UPDATED BIG BLUE BOXES --- */
-    .task-list { 
-        list-style-type: none; 
+    .task-list {
+        list-style-type: none;
         padding: 0;
-        width: 60%; /* Ensures list takes full container width */
+        width: 60%;
     }
-
     .task-item {
         background-color: #547792;
         color: white;
@@ -188,14 +160,11 @@
         width: 100%; /* Stretch to fill container */
         box-sizing: border-box;
     }
-
     .task-text { text-align: left; }
     .text-main { font-weight: bold; display: block; font-size: 1.2rem; } /* Slightly larger text */
     .text-due { font-size: 0.9rem; opacity: 0.8; }
-    
     .task-item.completed { background-color: #3e596e; opacity: 0.6; }
     .task-item.completed .text-main { text-decoration: line-through; }
-
     .add-btn {
         padding: 12px 50px;
         background-color: #34b93d;
@@ -207,10 +176,8 @@
         font-size: 1.1rem;
         margin-top: 10px;
     }
-
     @keyframes check-bottom { 100% { height: 12px; } }
     @keyframes check-top { 0%, 50% { height: 0; } 100% { height: 24px; } }
-
     .footer-text { margin-top: 20px; font-style: italic; color: #666; }
 </style>
 {% endblock %}

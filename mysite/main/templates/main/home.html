@@ -1,19 +1,14 @@
 {%extends 'main/base.html'%} {%block content%}
-
 <div class="heading">
   <h1>ToDolist Tracker</h1>
   <p>View Your Previous ToDoLists</p>
 </div>
-
 <div class="styleForm1">
   <form method="post" name="form1" action="">
     {%csrf_token%} {{form1.as_p}}
     <button type="submit" name="action" value="submit1">Show Table</button>
   </form>
 </div>
-
-
-
 {%endblock%} {%block title%}
 <title>Home Page</title>
 {%endblock%} {% block extra_css %}
@@ -51,8 +46,8 @@
     padding: 10px;
     width: fit-content;
   }
-  button{
-    border-radius:5px;
+  button {
+    border-radius: 5px;
   }
 </style>
 {% endblock %}

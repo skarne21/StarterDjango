@@ -42,15 +42,12 @@
           color: #ffffffff;
           display: block;
       }
-
       .sidenav a:hover{
           color: #006eddff;
       }
-
       .main{
           margin-left: 250px;
           padding: 10px 5px;
-
       }
       button {
           display: block;
@@ -72,7 +69,6 @@
               text-align: center;
               box-sizing: border-box;
           }
-
       a{
           text-decoration: none;
       }
@@ -91,7 +87,6 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-
     {%block title%}
     <title>Shivaths' Demo Website</title>
     {%endblock%} {%block extra_css %}{% endblock %}
@@ -104,17 +99,12 @@
       <a href="{% url 'profile' %}">Account</a>
     </div>
     <div id="content" , name="content" , class="main">
-      {% if user.is_authenticated %}
-        {% block content%}
-        {% endblock %}
-      {% else%}
+      {% if user.is_authenticated %} {% block content%} {% endblock %} {% else%}
       {% block login %}
       <h1>Please Log In</h1>
-        <p>You must be logged in to view this content.</p>
-        <a href="/account/login/" class="btn btn-primary">Login Here</a>
-        {% endblock %}
-      {% endif %}
-
+      <p>You must be logged in to view this content.</p>
+      <a href="/account/login/" class="btn btn-primary">Login Here</a>
+      {% endblock %} {% endif %}
     </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
