@@ -101,11 +101,20 @@
       <a href="{% url 'Home'%}">Home</a>
       <a href="{% url 'Create'%}">Create ToDoList</a>
       <a href="{% url 'ShowALl'%}">Show All Lists</a>
+      <a href="{% url 'profile' %}">Account</a>
     </div>
     <div id="content" , name="content" , class="main">
-      {% block content%}
-      <h1>Hello There {{name}}</h1>
-      {% endblock %}
+      {% if user.is_authenticated %}
+        {% block content%}
+        {% endblock %}
+      {% else%}
+      {% block login %}
+      <h1>Please Log In</h1>
+        <p>You must be logged in to view this content.</p>
+        <a href="/account/login/" class="btn btn-primary">Login Here</a>
+        {% endblock %}
+      {% endif %}
+
     </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

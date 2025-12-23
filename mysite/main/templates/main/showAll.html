@@ -6,44 +6,53 @@
 {%endblock%}
 
 {%block content%}
-{% for ls in all %}
-<h1>{{ls.name}}</h1>
-<div class="content">
-    <div class="Navigation">
-            <a href="{% url 'content' ls.order %}"><button type="button">Go To {{ls.name}}</button></a>
-            <form method="POST" action="" name="delete">
-                {%csrf_token%}
-                <button type="submit" name="idToDelete" value="{{ls.order}}">Delete This List</button>
-            </form>
+    {% if not user.is_authenticated %}
+        <div class="alert alert-info">
+            <h1>Please Log In</h1>
+            <p>You must be logged in to view this content.</p>
+            <a href="/account/login/" class="btn btn-primary">Login Here</a>
         </div>
-    <ul>
-        
-        {% for item in ls.item_set.all %}
-        {% if item.complete == False %}
-        <li>
-            {{item.text}} &emsp; due: {{item.taskDueDate}}
-            <div class="checkbox-wrapper-19">
-        <input type="checkbox" id="{{item.taskId}}" disabled />
-        <label for="{{item.taskId}}" class="check-box"></label>
-      </div>
-        </li>
-        {% endif %}
-        {% endfor %}
-        {% for item in ls.item_set.all %}
-        {% if item.complete == True %}
-        <li>
-            {{item.text}} &emsp; due: {{item.taskDueDate}}
-            <div class="checkbox-wrapper-19">
-        <input type="checkbox" id="{{item.taskId}}" checked disabled />
-        <label for="{{item.taskId}}" class="check-box"></label>
-      </div>
-        </li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    </div>
+    {% else %}
 
-{% endfor %}
+    {% for ls in all %}
+    <a href="{% url 'content' ls.order %}"><h1>{{ls.name}}</h1></a>
+    <div class="content">
+        <div class="Navigation">
+                
+                <form method="POST" action="" name="delete">
+                    {%csrf_token%}
+                    <button type="submit" name="idToDelete" value="{{ls.order}}">Delete This List</button>
+                </form>
+            </div>
+        <ul>
+            
+            {% for item in ls.item_set.all %}
+            {% if item.complete == False %}
+            <li>
+                {{item.text}} &emsp; due: {{item.taskDueDate}}
+                <div class="checkbox-wrapper-19">
+            <input type="checkbox" id="{{item.taskId}}" disabled />
+            <label for="{{item.taskId}}" class="check-box"></label>
+        </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% for item in ls.item_set.all %}
+            {% if item.complete == True %}
+            <li>
+                {{item.text}} &emsp; due: {{item.taskDueDate}}
+                <div class="checkbox-wrapper-19">
+            <input type="checkbox" id="{{item.taskId}}" checked disabled />
+            <label for="{{item.taskId}}" class="check-box"></label>
+        </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        </div>
+        
+    {% endfor %}
+    {% endif %}
 {%endblock%}
 
 {% block extra_css %}
@@ -54,6 +63,7 @@
     align-items: flex-start;
     position: relative;     /* Keeps the absolute buttons inside this box */
     width: 100%;
+    margin-bottom: 50px;
 }
         li {
     display: flex;             /* Changed from block */
@@ -74,7 +84,7 @@
             flex-direction: column;  
             position: absolute;      
             left: 20px;             
-            top:-5px;
+            top:-1px;
             gap:3px;
             width: min-content;
         }
@@ -118,7 +128,6 @@
     position: relative;
     display: inline-block;
     transition: border-color ease 0.2s;
-    cursor: pointer;
     }
 
     .checkbox-wrapper-19 .check-box::before,

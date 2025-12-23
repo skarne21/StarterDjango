@@ -1,0 +1,34 @@
+{%extends 'main/base.html'%}
+
+{% block title %}<title>Login</title>{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block login %}
+    <form method = "post" class = "form-group">
+        {% csrf_token %}
+        {{form | crispy}}
+            <a href="/account/createAccount/">Create Account</a>
+            <p></p>
+            <button type = "submit" class = "btn btn-success"> Login</button>
+    </form>
+{% endblock %}
+{% block extra_css %}
+    <style type="text/css">
+        /* Targets text, passwords, emails, numbers, selects, and textareas */
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            display: block;
+            margin: 10px 0; /* Changed to 0 on the right/left to prevent overflow */
+            padding: 10px;
+            border: 2px solid #336699;
+            border-radius: 8px;
+            width: 100%;    /* Sets them all to full width of the container */
+            font-size: 16px;
+            box-sizing: border-box; /* Crucial: ensures padding doesn't make the box wider than 100% */
+        }
+    </style>
+{% endblock %}

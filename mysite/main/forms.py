@@ -3,12 +3,17 @@ from .models import ToDoList, Item
 from datetime import date
 
 
-class CreateNewList(forms.Form):    
+class CreateNewList(forms.Form):
      name = forms.CharField(label="Name", max_length=200)
-     
-     
+
 class ShowSpecific(forms.Form):
-     id = forms.ModelChoiceField(queryset=ToDoList.objects.all())
+     id = forms.ModelChoiceField(queryset=ToDoList.objects.none())
+
+     def __init__(self, *args, **kwargs):
+          user = kwargs.pop('user', None)
+          super(ShowSpecific, self).__init__(*args, **kwargs)
+          if user:
+               self.fields['id'].queryset = ToDoList.objects.filter(user=user)
 
 class NameToGreet(forms.Form):
      name = forms.CharField(label = "Name", max_length=200)
